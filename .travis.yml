@@ -8,4 +8,3 @@ jobs:
       name: "Build nuget package"
       script:
         - nuget pack ./nuget/Package.nuspec
-        
