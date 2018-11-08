@@ -1,0 +1,11 @@
+language: csharp
+mono: none
+dotnet: 2.1
+
+jobs:
+  include:
+    - stage: "Build"
+      name: "Build nuget package"
+      script:
+        - nuget pack ./nuget/Package.nuspec
+        
