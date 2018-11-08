@@ -1,0 +1,14 @@
+language: csharp
+mono: none
+dotnet: 2.1
+mono: latest
+
+jobs:
+  include:
+    - stage: "Build"
+      name: "Build nuget package"
+      script:
+        - nuget pack ./nuget/Package.nuspec
+
+notifications:
+    slack: sem5640-2018:gxXCLVtsXyVq3214Oxq33ArB
