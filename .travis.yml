@@ -8,7 +8,8 @@ jobs:
     - stage: "Build"
       name: "Build nuget package"
       script:
-        - nuget pack ./nuget/Package.nuspec
+        - dotnet build AberFitnessLayout -c Release
+        # TODO publish package
 
 notifications:
     slack: sem5640-2018:gxXCLVtsXyVq3214Oxq33ArB
