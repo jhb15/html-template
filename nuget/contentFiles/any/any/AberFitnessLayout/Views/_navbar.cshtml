@@ -1,0 +1,60 @@
+@using System.Net.Http
+@using Newtonsoft.Json;
+@using AberFitnessLayout.Models
+@inject IHttpClientFactory httpClientFactory
+@{
+    var httpClient = httpClientFactory.CreateClient();
+    var response = await httpClient.GetAsync("https://docker2.aberfitness.biz/html-service/api/Navbar");
+    var appList = new List<App>();
+    if (response.IsSuccessStatusCode)
+    {
+        appList = JsonConvert.DeserializeObject<List<App>>(response.Content.ReadAsStringAsync().Result);
+    }
+}
+
+@if (appList.Count == 0)
+{
+    <div class="alert alert-danger">
+        <strong>Utter Failure.</strong> Failed to load navbar content.
+    </div>
+}
+else
+{
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">AberFitness</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @foreach (var app in appList)
+                    {
+                        if (app.AppLinks.Count == 0)
+                        {
+                            <li><a href="@app.Uri">@app.DisplayName</a></li>
+                        }
+                        else
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@app.DisplayName <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    @foreach (var appLink in app.AppLinks)
+                                    {
+                                        <li><a href="@appLink.Uri">@appLink.DisplayName</a></li>
+                                    }
+
+                                </ul>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+}
