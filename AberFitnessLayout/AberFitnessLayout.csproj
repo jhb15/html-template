@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>biz.aberfitness.layout</PackageId>
+    <Version>0.0.5</Version>
+    <Authors>Adam Lancaster</Authors>
+    <Company>AberFtiness</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\_navbar.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Shared\_aberfitness_navbar.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.6" />
+  </ItemGroup>
+
+</Project>
