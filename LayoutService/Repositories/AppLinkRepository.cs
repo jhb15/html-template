@@ -36,6 +36,11 @@ namespace LayoutService.Repositories
             return await context.AppLink.ToListAsync();
         }
 
+        public async Task<List<AppLink>> GetAllWithSubLinksAsync()
+        {
+            return await context.AppLink.Include("SubLinks").ToListAsync();
+        }
+
         public async Task<AppLink> GetByIdAsync(int id)
         {
             return await context.AppLink.Include("SubLinks").FirstOrDefaultAsync(al => al.Id == id);

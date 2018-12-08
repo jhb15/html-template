@@ -12,6 +12,8 @@ namespace LayoutService.Repositories
 
         Task<List<AppLink>> GetAllAsync();
 
+        Task<List<AppLink>> GetAllWithSubLinksAsync();
+
         Task<AppLink> AddAsync(AppLink appLink);
 
         Task<AppLink> UpdateAsync(AppLink appLink);
