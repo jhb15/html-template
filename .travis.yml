@@ -20,10 +20,14 @@ jobs:
     include:
     - stage: test
       name: "xUnit Tests"
+      solution: AberFitnessLayout.sln
+      dotnet: 2.1
       script:
         - dotnet restore
     - stage: build_staging
       name: "Build docker staging image"
+      solution: AberFitnessLayout.sln
+      dotnet: 2.1
       sudo: required
       services:
         - docker
@@ -31,6 +35,8 @@ jobs:
         - ./bin/docker.sh staging
     - stage: build_release
       name: "Build docker release image"
+      solution: AberFitnessLayout.sln
+      dotnet: 2.1
       sudo: required
       services:
         - docker
