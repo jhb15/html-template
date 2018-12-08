@@ -11,11 +11,15 @@ namespace AberFitnessLayout.Models
             SubLinks = new List<AppSubLink>();
         }
 
+        [Key]
+        public virtual int Id { get; set; }
+
         [Required]
         public virtual string DisplayName { get; set; }
 
         [Required]
-        public virtual Uri Uri { get; set; }
+        [Url]
+        public virtual string Uri { get; set; }
 
         [Required]
         public virtual IList<AppSubLink> SubLinks { get; set; }
