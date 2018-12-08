@@ -1,4 +1,4 @@
-﻿Hello AberFitness.bizzers
+﻿Hey whats up AberFitness.bizzers
 
 Want to know how to install this navbar?
 
@@ -25,3 +25,5 @@ Modify Views/Shared/_Layout.cshtml and replace:
 Then, in your startup.cs->ConfigureServices make sure you have an HttpClientFactory regisered.
 
 services.AddHttpClient();
+
+That's it.  Peace.
