@@ -38,7 +38,7 @@ namespace LayoutService.Repositories
 
         public async Task<AppLink> GetByIdAsync(int id)
         {
-            return await context.AppLink.FirstOrDefaultAsync(al => al.Id == id);
+            return await context.AppLink.Include("SubLinks").FirstOrDefaultAsync(al => al.Id == id);
         }
 
         public async Task<AppLink> UpdateAsync(AppLink appLink)

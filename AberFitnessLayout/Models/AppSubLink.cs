@@ -17,5 +17,8 @@ namespace AberFitnessLayout.Models
 
         [Required]
         public virtual AppLinkAccessLevel AccessLevel { get; set; }
+
+        [Required]
+        public virtual int AppLinkId { get; set; }
     }
 }

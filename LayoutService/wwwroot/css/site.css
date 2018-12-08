@@ -35,7 +35,3 @@ body {
         display: none;
     }
 }
-
-table td:first-child {
-    width: 100%;
-}

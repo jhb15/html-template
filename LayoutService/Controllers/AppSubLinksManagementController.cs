@@ -20,12 +20,6 @@ namespace LayoutService.Controllers
             this.appSubLinkRepository = appSubLinkRepository;
         }
 
-        // GET: AppSubLinksManagement
-        public async Task<IActionResult> Index()
-        {
-            return View(await appSubLinkRepository.GetAllAsync());
-        }
-
         // GET: AppSubLinksManagement/Create
         public IActionResult Create()
         {
@@ -37,12 +31,12 @@ namespace LayoutService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DisplayName,Uri,AccessLevel")] AppSubLink appSubLink)
+        public async Task<IActionResult> Create([Bind("Id,DisplayName,Uri,AccessLevel,AppLinkId")] AppSubLink appSubLink)
         {
             if (ModelState.IsValid)
             {
                 await appSubLinkRepository.AddAsync(appSubLink);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(AppLinksManagementController.Edit), "AppLinksManagement", new { Id = appSubLink.AppLinkId });
             }
             return View(appSubLink);
         }
@@ -68,7 +62,7 @@ namespace LayoutService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DisplayName,Uri,AccessLevel")] AppSubLink appSubLink)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DisplayName,Uri,AccessLevel,AppLinkId")] AppSubLink appSubLink)
         {
             if (id != appSubLink.Id)
             {
@@ -78,7 +72,7 @@ namespace LayoutService.Controllers
             if (ModelState.IsValid)
             {
                 await appSubLinkRepository.UpdateAsync(appSubLink);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(AppLinksManagementController.Edit), "AppLinksManagement", new { Id = appSubLink.AppLinkId });
             }
             return View(appSubLink);
         }
@@ -107,7 +101,7 @@ namespace LayoutService.Controllers
         {
             var appSubLink = await appSubLinkRepository.GetByIdAsync(id);
             await appSubLinkRepository.DeleteAsync(appSubLink);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(AppLinksManagementController.Edit), "AppLinksManagement", new { Id = appSubLink.AppLinkId });
         }
     }
 }
