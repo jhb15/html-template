@@ -16,6 +16,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using LayoutService.Models;
 using LayoutService.Repositories;
+using System.Net;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace LayoutService
 {
@@ -77,6 +79,19 @@ namespace LayoutService
             {
                 options.AddPolicy("Administrator", pb => pb.RequireClaim("user_type", "administrator"));
             });
+
+            if (!environment.IsDevelopment())
+            {
+                services.Configure<ForwardedHeadersOptions>(options =>
+                {
+                    var proxyHost = appConfig.GetValue<string>("ReverseProxyHostname", "http://nginx");
+                    var proxyAddresses = Dns.GetHostAddresses(proxyHost);
+                    foreach (var ip in proxyAddresses)
+                    {
+                        options.KnownProxies.Add(ip);
+                    }
+                });
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,6 +104,18 @@ namespace LayoutService
             }
             else
             {
+                var pathBase = appConfig.GetValue<string>("PathBase", "/layout-service");
+                RunMigrations(app);
+                app.UsePathBase(pathBase);
+                app.Use((context, next) =>
+                {
+                    context.Request.PathBase = new PathString(pathBase);
+                    return next();
+                });
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
                 app.UseHsts();
             }
 
@@ -103,6 +130,16 @@ namespace LayoutService
                     name: "default",
                     template: "{controller=AppLinksManagement}/{action=Index}/{id?}");
             });
+        }
+
+        private void RunMigrations(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var serviceProvider = serviceScope.ServiceProvider;
+                var dbContext = serviceProvider.GetService<LayoutServiceContext>();
+                dbContext.Database.Migrate();
+            }
         }
     }
 }
