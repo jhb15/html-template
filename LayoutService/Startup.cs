@@ -34,6 +34,8 @@ namespace LayoutService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => false; // We only use essential cookies
@@ -91,11 +93,12 @@ namespace LayoutService
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=AppLinksManagementController}/{action=Index}/{id?}");
+                    template: "{controller=AppLinksManagement}/{action=Index}/{id?}");
             });
         }
     }
