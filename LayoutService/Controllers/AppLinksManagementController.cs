@@ -1,30 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AberFitnessLayout.Models;
-using LayoutService.Models;
+﻿using AberFitnessLayout.Models;
+using LayoutService.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace LayoutService.Controllers
 {
     [Authorize("administrator")]
     public class AppLinksManagementController : Controller
     {
-        private readonly LayoutServiceContext _context;
+        private readonly IAppLinkRepository appLinkRepository;
 
-        public AppLinksManagementController(LayoutServiceContext context)
+        public AppLinksManagementController(IAppLinkRepository appLinkRepository)
         {
-            _context = context;
+            this.appLinkRepository = appLinkRepository;
         }
 
         // GET: AppLinks
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AppLink.ToListAsync());
+            return View(await appLinkRepository.GetAllAsync());
         }
 
         // GET: AppLinks/Details/5
@@ -35,8 +30,7 @@ namespace LayoutService.Controllers
                 return NotFound();
             }
 
-            var appLink = await _context.AppLink
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var appLink = await appLinkRepository.GetByIdAsync(id.Value);
             if (appLink == null)
             {
                 return NotFound();
@@ -60,8 +54,7 @@ namespace LayoutService.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(appLink);
-                await _context.SaveChangesAsync();
+                await appLinkRepository.AddAsync(appLink);
                 return RedirectToAction(nameof(Index));
             }
             return View(appLink);
@@ -75,7 +68,7 @@ namespace LayoutService.Controllers
                 return NotFound();
             }
 
-            var appLink = await _context.AppLink.FindAsync(id);
+            var appLink = await appLinkRepository.GetByIdAsync(id.Value);
             if (appLink == null)
             {
                 return NotFound();
@@ -97,22 +90,7 @@ namespace LayoutService.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(appLink);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AppLinkExists(appLink.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await appLinkRepository.UpdateAsync(appLink);
                 return RedirectToAction(nameof(Index));
             }
             return View(appLink);
@@ -126,8 +104,7 @@ namespace LayoutService.Controllers
                 return NotFound();
             }
 
-            var appLink = await _context.AppLink
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var appLink = await appLinkRepository.GetByIdAsync(id.Value);
             if (appLink == null)
             {
                 return NotFound();
@@ -141,15 +118,9 @@ namespace LayoutService.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var appLink = await _context.AppLink.FindAsync(id);
-            _context.AppLink.Remove(appLink);
-            await _context.SaveChangesAsync();
+            var appLink = await appLinkRepository.GetByIdAsync(id);
+            await appLinkRepository.DeleteAsync(appLink);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AppLinkExists(int id)
-        {
-            return _context.AppLink.Any(e => e.Id == id);
         }
     }
 }

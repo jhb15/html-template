@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using LayoutService.Models;
+using LayoutService.Repositories;
 
 namespace LayoutService
 {
@@ -35,6 +36,7 @@ namespace LayoutService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
+            services.AddScoped<IAppLinkRepository, AppLinkRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
