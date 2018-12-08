@@ -3,6 +3,14 @@ env:
     - secure: "u28eR7TlLanV3Z2SKETJ49CjIPrGYqo0WHffQ35TE5olCTJvzR4lvHZjrPnE6LKN1UjNy/3jxB55JPq90MaK2aHkj0cKZkjLEEhQne7NNKOpKGx0qXbUHB/7IIH67P6alXqRTm8oXDhDDIuRBiBOYAq1GXWYv4Ty5fBJ5bQcXquwle3eDwBChORdsA3fg9WuqmmX4Byo0va2UPIANX/L0MxVK8vZjWfRhYXshZQ77eaelv3U7OToY5kC6f4Pfl7WsVuxz6IwZD1acMgc+YLVMJcsHoAEOynZp+WBI4DXJv8uHqP+0TSqvbCS1UPb2HQTMOyGkCzd7E+j5H3uynoADnZrZllaGPeSKfMH9ldJZBTmXmqt0g6L71xKgMuLLBvSc6Vt9Z58zSdNH1LGB/TuA+NwtDtGD+CeIL5I5pqLXyAR7W2dSWirTRrgk3+8TPlY8GrPnjeKB2JlYiSerZLpgwFZE9e2YdcgFDnmOy5AhVB3q4NiM+fDOiJQ9ckaC6tYoeqAzar7pO1s6Z/KFy6lMGZbORPDsTDuehgDbyCKyN7n782Pjp8cB4HOq9/3CMQkiMR5ivhjT2PQUSUl27Jdbb7LtSCdDh3rWtzaNzbc5t/K9kpsIFTegBVb0stH4XvxdG7MgdGfFwwyXOlKkdmXZRxaLzG3dg44OoNgSNew9mY="
     - secure: "JDj7vbYNwqA1yYekgMgvS9fPBtOKmH2GAVlNEuHUuxhztjenQ2VAMOhWRxijpIP5kLjpEnZ4wU6dv2aDheziI3zzs1smbROxKilx6OzllrwweX3hJ49C+xblhgM+k5kN/QlOvvrzmLT32X6jsdgH9bh1O1LHRM3Ewb8isGZKDilsW/S4VRBQ3p4vzu0ra2V5RHJR+TJB4BLZZYkaYj3f8cJ7jddlXaMem6EBAWyhlcsiNq0lxgln0vBQGA29/ftzINPI5qMjtsLGvc0aFjMi/+3kHOLhNVgKlY780eHgLjjMEJlBQ7vmPWcLFqTXEA8+lRyxv6dvtcLee6wTsMQZuwAsWvMMcwtcoWfscCqWLD2/10mYcWVpEPOJQ/0/JDR5bKejuSAsK1apZyMWRpkOPvKpTV/+eLUuY8vp1L5e7B7RA8waZC3nh4vloyEk83AgbRy9q7L3MMrzEgDAqHMQzAmRWA6zOdysKUCbc9sn17bQmRNC3aYhoJTg/GppNk3m39ip+lGmuLhZsLgakVxygLx7JLoVhC57ndEObRdcDIVE/Pa/4mPEOjVut+AlEAFzWwDsiU234hEMFVVnIAYQIf+oYPhARtaWA6AJYm8B/t2IuDdtcYK1aUPvC3gaQyt0Ms+G2sDjyfZYzYpYP2I94fZRs2lxhkuL5RiP3WOhetw="
 
+stages:
+  - test
+  - name: build_staging
+    if: branch = development AND type = push
+  - name: build_release
+    if: branch = master AND type = push
+  - name: build_nuget
+    if: branch = master AND type = push
 
 jobs:
   include:
