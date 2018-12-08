@@ -1,8 +1,3 @@
-language: csharp
-solution: AberFitnessLayout.sln
-mono: none
-dotnet: 2.1
-
 env:
   global:
     - secure: "u28eR7TlLanV3Z2SKETJ49CjIPrGYqo0WHffQ35TE5olCTJvzR4lvHZjrPnE6LKN1UjNy/3jxB55JPq90MaK2aHkj0cKZkjLEEhQne7NNKOpKGx0qXbUHB/7IIH67P6alXqRTm8oXDhDDIuRBiBOYAq1GXWYv4Ty5fBJ5bQcXquwle3eDwBChORdsA3fg9WuqmmX4Byo0va2UPIANX/L0MxVK8vZjWfRhYXshZQ77eaelv3U7OToY5kC6f4Pfl7WsVuxz6IwZD1acMgc+YLVMJcsHoAEOynZp+WBI4DXJv8uHqP+0TSqvbCS1UPb2HQTMOyGkCzd7E+j5H3uynoADnZrZllaGPeSKfMH9ldJZBTmXmqt0g6L71xKgMuLLBvSc6Vt9Z58zSdNH1LGB/TuA+NwtDtGD+CeIL5I5pqLXyAR7W2dSWirTRrgk3+8TPlY8GrPnjeKB2JlYiSerZLpgwFZE9e2YdcgFDnmOy5AhVB3q4NiM+fDOiJQ9ckaC6tYoeqAzar7pO1s6Z/KFy6lMGZbORPDsTDuehgDbyCKyN7n782Pjp8cB4HOq9/3CMQkiMR5ivhjT2PQUSUl27Jdbb7LtSCdDh3rWtzaNzbc5t/K9kpsIFTegBVb0stH4XvxdG7MgdGfFwwyXOlKkdmXZRxaLzG3dg44OoNgSNew9mY="
@@ -17,17 +12,16 @@ stages:
 
 jobs:
   include:
-    include:
     - stage: test
       name: "xUnit Tests"
+      language: csharp
       solution: AberFitnessLayout.sln
+      mono: none
       dotnet: 2.1
       script:
         - dotnet restore
     - stage: build_staging
       name: "Build docker staging image"
-      solution: AberFitnessLayout.sln
-      dotnet: 2.1
       sudo: required
       services:
         - docker
@@ -35,8 +29,6 @@ jobs:
         - ./bin/docker.sh staging
     - stage: build_release
       name: "Build docker release image"
-      solution: AberFitnessLayout.sln
-      dotnet: 2.1
       sudo: required
       services:
         - docker
