@@ -45,7 +45,6 @@ jobs:
       dotnet: 2.1
       script:
         - dotnet build AberFitnessLayout -c Release
-        # TODO publish package
 
 notifications:
     slack: sem5640-2018:gxXCLVtsXyVq3214Oxq33ArB
