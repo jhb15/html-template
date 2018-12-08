@@ -1,4 +1,4 @@
-﻿@model AberFitnessLayout.Models.AppLink
+﻿@model LayoutService.Models.AppLink
 
 @{
     ViewData["Title"] = "Edit";
@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="AccessLevel" class="control-label"></label>
-                        <select asp-for="AccessLevel" asp-items="Html.GetEnumSelectList<AberFitnessLayout.Models.AppLinkAccessLevel>()" class="form-control"></select>
+                        <select asp-for="AccessLevel" asp-items="Html.GetEnumSelectList<LayoutService.Models.AppLinkAccessLevel>()" class="form-control"></select>
                         <span asp-validation-for="AccessLevel" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -47,7 +47,7 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">Create Sub-Link</h3></div>
             <div class="panel-body">
-                <partial model="new AberFitnessLayout.Models.AppSubLink()" name="/Views/AppSubLinksManagement/_Create.cshtml" view-data="ViewData" />
+                <partial model="new LayoutService.Models.AppSubLink()" name="/Views/AppSubLinksManagement/_Create.cshtml" view-data="ViewData" />
             </div>
         </div>
     </div>
