@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AberFitnessLayout\AberFitnessLayout.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="Views\Shared\_aberfitness_navbar.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

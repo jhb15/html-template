@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using AberFitnessLayout.Models;
+using LayoutService.Models;
 
 namespace LayoutService.Models
 {
@@ -14,8 +14,8 @@ namespace LayoutService.Models
         {
         }
 
-        public DbSet<AberFitnessLayout.Models.AppLink> AppLink { get; set; }
+        public DbSet<AppLink> AppLink { get; set; }
 
-        public DbSet<AberFitnessLayout.Models.AppSubLink> AppSubLink { get; set; }
+        public DbSet<AppSubLink> AppSubLink { get; set; }
     }
 }

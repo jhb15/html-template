@@ -1,4 +1,4 @@
-﻿using AberFitnessLayout.Models;
+﻿using LayoutService.Models;
 using LayoutService.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
