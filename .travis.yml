@@ -1,5 +1,7 @@
 language: csharp
 solution: AberFitnessLayout.sln
+mono: none
+dotnet: 2.1
 
 env:
   global:
@@ -12,16 +14,12 @@ stages:
     if: branch = development AND type = push
   - name: build_release
     if: branch = master AND type = push
-  - name: build_nuget
-    if: branch = master AND type = push
 
 jobs:
   include:
     include:
     - stage: test
       name: "xUnit Tests"
-      mono: none
-      dotnet: 2.1
       script:
         - dotnet restore
     - stage: build_staging
@@ -38,12 +36,6 @@ jobs:
         - docker
       script:
         - ./bin/docker.sh latest
-    - stage: "build_nuget"
-      name: "Build nuget package"
-      mono: latest
-      dotnet: 2.1
-      script:
-        - dotnet build AberFitnessLayout -c Release
 
 notifications:
     slack: sem5640-2018:gxXCLVtsXyVq3214Oxq33ArB
