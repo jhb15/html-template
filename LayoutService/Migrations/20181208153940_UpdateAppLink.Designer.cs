@@ -3,14 +3,16 @@ using System;
 using LayoutService.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LayoutService.Migrations
 {
     [DbContext(typeof(LayoutServiceContext))]
-    partial class LayoutServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20181208153940_UpdateAppLink")]
+    partial class UpdateAppLink
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

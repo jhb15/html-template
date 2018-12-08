@@ -17,7 +17,6 @@ namespace AberFitnessLayout.Models
         [Required]
         public virtual string DisplayName { get; set; }
 
-        [Required]
         [Url]
         public virtual string Uri { get; set; }
 
