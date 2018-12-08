@@ -15,5 +15,7 @@ namespace LayoutService.Models
         }
 
         public DbSet<AberFitnessLayout.Models.AppLink> AppLink { get; set; }
+
+        public DbSet<AberFitnessLayout.Models.AppSubLink> AppSubLink { get; set; }
     }
 }

@@ -37,6 +37,7 @@ namespace LayoutService
         {
             services.AddHttpClient();
             services.AddScoped<IAppLinkRepository, AppLinkRepository>();
+            services.AddScoped<IAppSubLinkRepository, AppSubLinkRepository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
