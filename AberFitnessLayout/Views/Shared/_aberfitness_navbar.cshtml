@@ -3,16 +3,18 @@
 @using Microsoft.AspNetCore.Hosting
 @using AberFitnessLayout.Models
 @inject IHttpClientFactory httpClientFactory
-@inject IHostingEnvironment environment 
+@inject IHostingEnvironment environment
 @{
-    var isUserLoggedIn = User.HasClaim("user_type", "member") || User.HasClaim("user_type", "coordinator") || User.HasClaim("user_type", "administrator");
+    var userExists = User.Claims.Select(c => c.Type == "sub").Count() == 1;
+    var userIsCoordinator = User.HasClaim("user_type", "coordinator") || User.HasClaim("user_type", "administrator");
+    var userIsAdmin = User.HasClaim("user_type", "administrator");
     var httpClient = httpClientFactory.CreateClient();
     var dockerHost = environment.IsProduction() ? "docker1" : "docker2";
-    var response = await httpClient.GetAsync($"https://{dockerHost}.aberfitness.biz/html-service/api/Navbar");
-    var appList = new List<App>();
+    var response = await httpClient.GetAsync($"https://{dockerHost}.aberfitness.biz/layout-service/api/AppLinks");
+    var appLinks = new List<AppLink>();
     if (response.IsSuccessStatusCode)
     {
-        appList = JsonConvert.DeserializeObject<List<App>>(response.Content.ReadAsStringAsync().Result);
+        appLinks = JsonConvert.DeserializeObject<List<AppLink>>(response.Content.ReadAsStringAsync().Result);
     }
 }
 
@@ -29,36 +31,51 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                @if (appList.Count == 0)
+                @if (appLinks.Count == 0)
                 {
                     <li><a href="/">Failed to load navbar content</a></li>
                 }
                 else
                 {
 
-                    @foreach (var app in appList)
+                    @foreach (var link in appLinks)
                     {
-                        if (app.AppLinks.Count == 0)
+                        if (
+                            link.AccessLevel == AppLinkAccessLevel.COORDINATOR && !userIsCoordinator ||
+                            link.AccessLevel == AppLinkAccessLevel.ADMINISTRATOR && !userIsAdmin
+                        )
                         {
-                            <li><a href="@app.Uri">@app.DisplayName</a></li>
+                            continue;
+                        }
+
+
+                        if (link.SubLinks.Count == 0)
+                        {
+                            <li><a href="@link.Uri">@link.DisplayName</a></li>
                         }
                         else
                         {
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@app.DisplayName <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@link.DisplayName <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    @foreach (var appLink in app.AppLinks)
+                                    @foreach (var subLink in link.SubLinks)
                                     {
-                                        <li><a href="@appLink.Uri">@appLink.DisplayName</a></li>
+                                        if (
+                                            subLink.AccessLevel == AppLinkAccessLevel.COORDINATOR && !userIsCoordinator ||
+                                            subLink.AccessLevel == AppLinkAccessLevel.ADMINISTRATOR && !userIsAdmin
+                                        )
+                                        {
+                                            continue;
+                                        }
+                                        <li><a href="@subLink.Uri">@subLink.DisplayName</a></li>
                                     }
-
                                 </ul>
                             </li>
                         }
                     }
                 }
             </ul>
-            @if (isUserLoggedIn)
+            @if (userExists)
             {
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/gatekeeper">Profile</a></li>
