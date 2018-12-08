@@ -22,23 +22,6 @@ namespace LayoutService.Controllers
             return View(await appLinkRepository.GetAllAsync());
         }
 
-        // GET: AppLinks/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var appLink = await appLinkRepository.GetByIdAsync(id.Value);
-            if (appLink == null)
-            {
-                return NotFound();
-            }
-
-            return View(appLink);
-        }
-
         // GET: AppLinks/Create
         public IActionResult Create()
         {
