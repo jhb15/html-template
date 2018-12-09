@@ -1,0 +1,19 @@
+[
+  {
+    "outputFileName": "wwwroot/aberfitness/style.min.css",
+    "inputFiles": [
+      "wwwroot/aberfitness/style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/aberfitness/main.min.js",
+    "inputFiles": [
+      "wwwroot/aberfitness/main.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]
