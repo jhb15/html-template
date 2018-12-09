@@ -1,41 +1,41 @@
 ﻿@model LayoutService.Models.AppLink
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create AppLink";
 }
 
-<h2>Create</h2>
-
-<h4>AppLink</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="DisplayName" class="control-label"></label>
-                <input asp-for="DisplayName" class="form-control" />
-                <span asp-validation-for="DisplayName" class="text-danger"></span>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                Create AppLink
             </div>
-            <div class="form-group">
-                <label asp-for="Uri" class="control-label"></label>
-                <input asp-for="Uri" class="form-control" />
-                <span asp-validation-for="Uri" class="text-danger"></span>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="DisplayName" class="control-label"></label>
+                        <input asp-for="DisplayName" class="form-control" />
+                        <span asp-validation-for="DisplayName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Uri" class="control-label"></label>
+                        <input asp-for="Uri" class="form-control" />
+                        <span asp-validation-for="Uri" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AccessLevel" class="control-label"></label>
+                        <select asp-for="AccessLevel" asp-items="Html.GetEnumSelectList<LayoutService.Models.AppLinkAccessLevel>()" class="form-control"></select>
+                        <span asp-validation-for="AccessLevel" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-success" />
+                        <a asp-action="Index" class="btn btn-primary">Cancel</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="AccessLevel" class="control-label"></label>
-                <select asp-for="AccessLevel" asp-items="Html.GetEnumSelectList<LayoutService.Models.AppLinkAccessLevel>()" class="form-control"></select>
-                <span asp-validation-for="AccessLevel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

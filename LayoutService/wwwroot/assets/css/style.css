@@ -2505,3 +2505,8 @@ footer.site-footer {
   #cellPaiChart #pieLabel0 {
     left: inherit !important;
     right: 20px !important; }
+
+
+  .aberfitness-test-class {
+      display: block;
+  }
