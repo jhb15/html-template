@@ -9,6 +9,9 @@ namespace AberFitnessLayout.Models
         public virtual int Id { get; set; }
 
         [Required]
+        public virtual string IconName { get; set; }
+
+        [Required]
         public virtual string DisplayName { get; set; }
 
         [Required]

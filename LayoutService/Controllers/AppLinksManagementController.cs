@@ -33,7 +33,7 @@ namespace LayoutService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DisplayName,Uri,AccessLevel")] AppLink appLink)
+        public async Task<IActionResult> Create([Bind("Id,IconName,DisplayName,Uri,AccessLevel")] AppLink appLink)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace LayoutService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DisplayName,Uri,AccessLevel")] AppLink appLink)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IconName,DisplayName,Uri,AccessLevel")] AppLink appLink)
         {
             if (id != appLink.Id)
             {

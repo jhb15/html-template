@@ -16,6 +16,11 @@
                     <input type="hidden" name="AppLinkId" value="@Model.AppLinkId" />
                     <input type="hidden" asp-for="Id" />
                     <div class="form-group">
+                        <label asp-for="IconName" class="control-label"></label>
+                        <input asp-for="IconName" class="form-control" />
+                        <span asp-validation-for="IconName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="DisplayName" class="control-label"></label>
                         <input asp-for="DisplayName" class="form-control" />
                         <span asp-validation-for="DisplayName" class="text-danger"></span>
