@@ -1,14 +1,14 @@
 [
   {
-    "outputFileName": "wwwroot/aberfitness/style.min.css",
+    "outputFileName": "wwwroot/assets/css/style.min.css",
     "inputFiles": [
-      "wwwroot/aberfitness/style.css"
+      "wwwroot/assets/css/style.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/aberfitness/main.min.js",
+    "outputFileName": "wwwroot/assets/js/main.min.js",
     "inputFiles": [
-      "wwwroot/aberfitness/main.js"
+      "wwwroot/assets/js/main.js"
     ],
     "minify": {
       "enabled": true,

@@ -84,5 +84,5 @@ jQuery(document).ready(function($) {
 		
 	});
   
- 
+    window.isAberFitnessBizzer = function () { return "bizzing" }
 });
