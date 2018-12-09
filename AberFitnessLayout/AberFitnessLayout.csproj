@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>biz.aberfitness.layout</PackageId>
-    <Version>2.6.12</Version>
+    <Version>2.6.13</Version>
     <Authors>Adam Lancaster</Authors>
     <Company>AberFtiness</Company>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -27,10 +27,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\LayoutService\LayoutService.csproj" />
   </ItemGroup>
 
 </Project>
