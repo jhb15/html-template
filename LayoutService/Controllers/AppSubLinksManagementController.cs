@@ -19,18 +19,12 @@ namespace LayoutService.Controllers
             this.appSubLinkRepository = appSubLinkRepository;
         }
 
-        // GET: AppSubLinksManagement/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
         // POST: AppSubLinksManagement/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DisplayName,Uri,AccessLevel,AppLinkId")] AppSubLink appSubLink)
+        public async Task<IActionResult> Create([Bind("Id,IconName,DisplayName,Uri,AccessLevel,AppLinkId")] AppSubLink appSubLink)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +55,7 @@ namespace LayoutService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DisplayName,Uri,AccessLevel,AppLinkId")] AppSubLink appSubLink)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IconName,DisplayName,Uri,AccessLevel,AppLinkId")] AppSubLink appSubLink)
         {
             if (id != appSubLink.Id)
             {
