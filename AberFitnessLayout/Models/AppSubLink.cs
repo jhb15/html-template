@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AberFitnessLayout.Models
+namespace LayoutService.Models
 {
     public class AppSubLink
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AberFitnessLayout.Models
+namespace LayoutService.Models
 {
     public enum AppLinkAccessLevel
     {
