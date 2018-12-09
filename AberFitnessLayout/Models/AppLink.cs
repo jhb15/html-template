@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace LayoutService.Models
+namespace AberFitnessLayout.Models
 {
     public class AppLink
     {
