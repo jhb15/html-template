@@ -1,20 +1,35 @@
 ﻿@using System.Net.Http
 @using Newtonsoft.Json
 @using Microsoft.AspNetCore.Hosting
-@using AberFitnessLayout.Models
+@using LayoutService.Models
 @inject IHttpClientFactory httpClientFactory
 @inject IHostingEnvironment environment
 @{
     var userExists = User.Claims.Where(c => c.Type == "sub").Count() == 1;
+    var userName = User.Claims.Where(c => c.Type == "name").FirstOrDefault();
     var userIsCoordinator = User.HasClaim("user_type", "coordinator") || User.HasClaim("user_type", "administrator");
     var userIsAdmin = User.HasClaim("user_type", "administrator");
     var httpClient = httpClientFactory.CreateClient();
-    var dockerHost = environment.IsProduction() ? "docker1" : "docker2";
-    var response = await httpClient.GetAsync($"https://{dockerHost}.aberfitness.biz/layout-service/api/AppLinks");
     var appLinks = new List<AppLink>();
-    if (response.IsSuccessStatusCode)
+    var dockerHost = environment.IsProduction() ? "docker1" : "docker2";
+    var rightPanelStyle = userExists ? "{}" : "margin-left: 0;";
+
+    try
     {
-        appLinks = JsonConvert.DeserializeObject<List<AppLink>>(response.Content.ReadAsStringAsync().Result);
+        var response = await httpClient.GetAsync($"https://{dockerHost}.aberfitness.biz/layout-service/api/AppLinks");
+        if (response.IsSuccessStatusCode)
+        {
+            appLinks = JsonConvert.DeserializeObject<List<AppLink>>(response.Content.ReadAsStringAsync().Result);
+        }
+    }
+    catch (HttpRequestException)
+    {
+        appLinks.Add(new AppLink
+        {
+            IconName = "exclamation-triangle",
+            DisplayName = "Failed to load",
+            AccessLevel = AppLinkAccessLevel.MEMBER
+        });
     }
 }
 
@@ -51,17 +66,12 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-    <aside id="left-panel" class="left-panel">
-        <nav class="navbar navbar-expand-sm navbar-default">
-            <div id="main-menu" class="main-menu collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    @if (appLinks.Count == 0)
-                    {
-                        <li><a href="/">Failed to load navbar content</a></li>
-                    }
-                    else
-                    {
-
+    @if (userExists)
+    {
+        <aside id="left-panel" class="left-panel">
+            <nav class="navbar navbar-expand-sm navbar-default">
+                <div id="main-menu" class="main-menu collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
                         @foreach (var link in appLinks)
                         {
                             if (
@@ -71,7 +81,6 @@
                             {
                                 continue;
                             }
-
 
                             if (link.SubLinks.Count == 0)
                             {
@@ -110,20 +119,23 @@
                                 </li>
                             }
                         }
-                    }
-                </ul>
-            </div>
-        </nav>
-    </aside>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+    }
 
-    <div id="right-panel" class="right-panel">
+    <div id="right-panel" class="right-panel" style="@rightPanelStyle">
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/" style="color: #878787 !important;">
                         <img src="/assets/img/aberfitness.png" alt="AberFitness" />
                     </a>
-                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                    @if (userExists)
+                    {
+                        <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                    }
                 </div>
             </div>
             <div class="top-right">
@@ -132,7 +144,7 @@
                     {
                         <div class="user-area dropdown float-right">
                             <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle" src="/assets/img/user.png" alt="User">
+                                Hi @userName.Value &nbsp;&nbsp;<img class="user-avatar rounded-circle" src="/assets/img/user.png" alt="User">
                             </a>
                             <div class="user-menu dropdown-menu">
                                 <a class="nav-link" href="/gatekeeper"><i class="fa fa-user"></i>My Profile</a>
