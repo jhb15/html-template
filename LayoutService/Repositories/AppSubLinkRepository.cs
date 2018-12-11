@@ -32,7 +32,7 @@ namespace LayoutService.Repositories
 
         public async Task<List<AppSubLink>> GetAllAsync()
         {
-            return await context.AppSubLink.ToListAsync();
+            return await context.AppSubLink.OrderBy(asl => asl.Priority).ToListAsync();
         }
 
         public async Task<AppSubLink> GetByIdAsync(int id)

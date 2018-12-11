@@ -14,16 +14,19 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.IconName)
-                        </th>
-                        <th>
                             @Html.DisplayNameFor(model => model.DisplayName)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Uri)
                         </th>
                         <th>
+                            @Html.DisplayNameFor(model => model.IconName)
+                        </th>
+                        <th>
                             @Html.DisplayNameFor(model => model.AccessLevel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Priority)
                         </th>
                         <th></th>
                     </tr>
@@ -33,16 +36,19 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.IconName)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.DisplayName)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Uri)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.IconName)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.AccessLevel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Priority)
                             </td>
                             <td>
                                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>

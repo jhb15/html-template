@@ -20,11 +20,9 @@ namespace LayoutService.Controllers
         }
 
         // POST: AppSubLinksManagement/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IconName,DisplayName,Uri,AccessLevel,AppLinkId")] AppSubLink appSubLink)
+        public async Task<IActionResult> Create([Bind("IconName,DisplayName,Uri,AccessLevel,AppLinkId,Priority")] AppSubLink appSubLink)
         {
             if (ModelState.IsValid)
             {
@@ -51,11 +49,9 @@ namespace LayoutService.Controllers
         }
 
         // POST: AppSubLinksManagement/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IconName,DisplayName,Uri,AccessLevel,AppLinkId")] AppSubLink appSubLink)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IconName,DisplayName,Uri,AccessLevel,AppLinkId,Priority")] AppSubLink appSubLink)
         {
             if (id != appSubLink.Id)
             {
