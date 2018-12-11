@@ -31,6 +31,23 @@
             AccessLevel = AppLinkAccessLevel.MEMBER
         });
     }
+
+    bool userCanAccessLink(AppLinkAccessLevel level)
+    {
+        if(level == AppLinkAccessLevel.MEMBER)
+        {
+            return true;
+        }
+        if(level == AppLinkAccessLevel.COORDINATOR && userIsCoordinator)
+        {
+            return true;
+        }
+        if(level == AppLinkAccessLevel.ADMINISTRATOR && userIsAdmin)
+        {
+            return true;
+        }
+        return false;
+    }
 }
 
 
@@ -74,15 +91,16 @@
                     <ul class="nav navbar-nav">
                         @foreach (var link in appLinks)
                         {
-                            if (
-                                link.AccessLevel == AppLinkAccessLevel.COORDINATOR && !userIsCoordinator ||
-                                link.AccessLevel == AppLinkAccessLevel.ADMINISTRATOR && !userIsAdmin
-                            )
+                            var numSubLinksUserCanAccess = link.SubLinks.Count;
+                            @foreach (var subLink in link.SubLinks)
                             {
-                                continue;
+                                if (!userCanAccessLink(subLink.AccessLevel))
+                                {
+                                    numSubLinksUserCanAccess--;
+                                }
                             }
 
-                            if (link.SubLinks.Count == 0)
+                            if (userCanAccessLink(link.AccessLevel) && (link.SubLinks.Count == 0 || numSubLinksUserCanAccess <= 1))
                             {
                                 <li>
                                     <a href="@link.Uri">
@@ -91,7 +109,7 @@
                                     </a>
                                 </li>
                             }
-                            else
+                            else if (userCanAccessLink(link.AccessLevel))
                             {
                                 <li class="menu-item-has-children">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -101,19 +119,15 @@
                                     <ul class="sub-menu children dropdown-menu">
                                         @foreach (var subLink in link.SubLinks)
                                         {
-                                            if (
-                                                subLink.AccessLevel == AppLinkAccessLevel.COORDINATOR && !userIsCoordinator ||
-                                                subLink.AccessLevel == AppLinkAccessLevel.ADMINISTRATOR && !userIsAdmin
-                                            )
+                                            if (userCanAccessLink(subLink.AccessLevel))
                                             {
-                                                continue;
+                                                <li>
+                                                    <i class="menu-icon fa fa-@subLink.IconName"></i>
+                                                    <a href="@subLink.Uri">
+                                                        @subLink.DisplayName
+                                                    </a>
+                                                </li>
                                             }
-                                            <li>
-                                                <i class="menu-icon fa fa-@subLink.IconName"></i>
-                                                <a href="@subLink.Uri">
-                                                    @subLink.DisplayName
-                                                </a>
-                                            </li>
                                         }
                                     </ul>
                                 </li>
