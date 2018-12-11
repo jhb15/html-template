@@ -13,12 +13,6 @@
             <div class="card-body">
                 <dl class="dl-horizontal">
                     <dt>
-                        @Html.DisplayNameFor(model => model.IconName)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.IconName)
-                    </dd>
-                    <dt>
                         @Html.DisplayNameFor(model => model.DisplayName)
                     </dt>
                     <dd>
@@ -27,6 +21,12 @@
                     <dt>
                         @Html.DisplayNameFor(model => model.Uri)
                     </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IconName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IconName)
+                    </dd>
                     <dd>
                         @Html.DisplayFor(model => model.Uri)
                     </dd>
@@ -35,6 +35,12 @@
                     </dt>
                     <dd>
                         @Html.DisplayFor(model => model.AccessLevel)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Priority)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Priority)
                     </dd>
                 </dl>
 

@@ -17,13 +17,7 @@
             </div>
             <div class="card-body">
                 <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
-                    <div class="form-group">
-                        <label asp-for="IconName" class="control-label"></label>
-                        <input asp-for="IconName" class="form-control" />
-                        <span asp-validation-for="IconName" class="text-danger"></span>
-                    </div>
                     <div class="form-group">
                         <label asp-for="DisplayName" class="control-label"></label>
                         <input asp-for="DisplayName" class="form-control" />
@@ -35,9 +29,19 @@
                         <span asp-validation-for="Uri" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="IconName" class="control-label"></label>
+                        <input asp-for="IconName" class="form-control" />
+                        <span asp-validation-for="IconName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="AccessLevel" class="control-label"></label>
                         <select asp-for="AccessLevel" asp-items="Html.GetEnumSelectList<LayoutService.Models.AppLinkAccessLevel>()" class="form-control"></select>
                         <span asp-validation-for="AccessLevel" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Priority" class="control-label"></label>
+                        <input asp-for="Priority" class="form-control" />
+                        <span asp-validation-for="Priority" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Save" class="btn btn-success" />
@@ -65,16 +69,19 @@
                 <thead>
                     <tr>
                         <th>
-                            Icon
+                            @Html.DisplayNameFor(model => model.SubLinks[0].DisplayName)
                         </th>
                         <th>
-                            Display Name
+                            @Html.DisplayNameFor(model => model.SubLinks[0].Uri)
                         </th>
                         <th>
-                            Uri
+                            @Html.DisplayNameFor(model => model.SubLinks[0].IconName)
                         </th>
                         <th>
-                            Access Level
+                            @Html.DisplayNameFor(model => model.SubLinks[0].AccessLevel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SubLinks[0].Priority)
                         </th>
                         <th></th>
                     </tr>
@@ -82,16 +89,17 @@
                 <tbody>
                     @foreach (var subLink in Model.SubLinks)
                     {
-                        <tr>
-                            <td>@subLink.IconName</td>
-                            <td>@subLink.DisplayName</td>
-                            <td>@subLink.Uri</td>
-                            <td>@subLink.AccessLevel</td>
-                            <td>
-                                <a class="btn btn-primary" asp-controller="AppSubLinksManagement" asp-action="Edit" asp-route-id="@subLink.Id">Edit</a>
-                                <a class="btn btn-danger" asp-controller="AppSubLinksManagement" asp-action="Delete" asp-route-id="@subLink.Id">Delete</a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>@subLink.DisplayName</td>
+                        <td>@subLink.Uri</td>
+                        <td>@subLink.IconName</td>
+                        <td>@subLink.AccessLevel</td>
+                        <td>@subLink.Priority</td>
+                        <td>
+                            <a class="btn btn-primary" asp-controller="AppSubLinksManagement" asp-action="Edit" asp-route-id="@subLink.Id">Edit</a>
+                            <a class="btn btn-danger" asp-controller="AppSubLinksManagement" asp-action="Delete" asp-route-id="@subLink.Id">Delete</a>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
