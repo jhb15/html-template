@@ -112,7 +112,7 @@
                             else if (userCanAccessLink(link.AccessLevel))
                             {
                                 <li class="menu-item-has-children">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <a href="@link.Uri" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                         <i class="menu-icon fa fa-@link.IconName"></i>
                                         @link.DisplayName
                                     </a>
@@ -184,6 +184,24 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="/assets/js/main.min.js" asp-fallback-src="https://docker2.aberfitness.biz/assets/js/main.min.js" asp-fallback-test="window.isAberFitnessBizzer"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script>
+        jQuery(document).ready(function () {
+            let $ = jQuery;
+            let navBar = $("ul.nav.navbar-nav");
+            let pathName = window.location.pathname;
+            let appDir = pathName.split("/").length > 1 ? pathName.split("/")[1] : "";
+            let topLevelLinks = navBar.children("li");
+
+            $.each(topLevelLinks, (_, link) => {
+                link = $(link);
+                let linkHref = link.find("a").attr("href");
+                if (linkHref == `/${appDir}`) {
+                    link.addClass("active show");
+                    link.find("ul").addClass("show");
+                }
+            })
+        })
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>
