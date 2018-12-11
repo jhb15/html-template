@@ -32,17 +32,24 @@ namespace LayoutService.Repositories
 
         public async Task<List<AppLink>> GetAllAsync()
         {
-            return await context.AppLink.ToListAsync();
+            return await context.AppLink.OrderBy(al => al.Priority).ToListAsync();
         }
 
         public async Task<List<AppLink>> GetAllWithSubLinksAsync()
         {
-            return await context.AppLink.Include("SubLinks").ToListAsync();
+            var appLinks = await context.AppLink.Include("SubLinks").OrderBy(al => al.Priority).ToListAsync();
+            foreach(var appLink in appLinks)
+            {
+                appLink.SubLinks = appLink.SubLinks.OrderBy(sl => sl.Priority).ToList();
+            }
+            return appLinks;
         }
 
         public async Task<AppLink> GetByIdAsync(int id)
         {
-            return await context.AppLink.Include("SubLinks").FirstOrDefaultAsync(al => al.Id == id);
+            var appLink = await context.AppLink.Include("SubLinks").FirstOrDefaultAsync(al => al.Id == id);
+            appLink.SubLinks = appLink.SubLinks.OrderBy(sl => sl.Priority).ToList();
+            return appLink;
         }
 
         public async Task<AppLink> UpdateAsync(AppLink appLink)
