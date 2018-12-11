@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>biz.aberfitness.layout</PackageId>
-    <Version>2.6.17</Version>
+    <Version>2.6.18</Version>
     <Authors>Adam Lancaster</Authors>
     <Company>AberFtiness</Company>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
