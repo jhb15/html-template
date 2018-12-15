@@ -1,0 +1,63 @@
+﻿@model IEnumerable<LayoutService.Models.AppLink>
+
+@{
+    ViewData["Title"] = "AppLink Management";
+}
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                AppLink Management <a asp-action="Create" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> New</a>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DisplayName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Uri)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IconName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AccessLevel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Priority)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DisplayName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Uri)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IconName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AccessLevel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Priority)
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

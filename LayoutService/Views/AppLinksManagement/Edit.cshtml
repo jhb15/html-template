@@ -1,0 +1,112 @@
+﻿@model LayoutService.Models.AppLink
+
+@{
+    ViewData["Title"] = "Edit AppLink";
+    ViewData["AppLinkId"] = Model.Id;
+}
+
+<p>
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</p>
+
+<div class="row">
+    <div class="col">
+        <div class="card border border-success">
+            <div class="card-header">
+                Edit AppLink
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="DisplayName" class="control-label"></label>
+                        <input asp-for="DisplayName" class="form-control" />
+                        <span asp-validation-for="DisplayName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Uri" class="control-label"></label>
+                        <input asp-for="Uri" class="form-control" />
+                        <span asp-validation-for="Uri" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IconName" class="control-label"></label>
+                        <input asp-for="IconName" class="form-control" />
+                        <span asp-validation-for="IconName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AccessLevel" class="control-label"></label>
+                        <select asp-for="AccessLevel" asp-items="Html.GetEnumSelectList<LayoutService.Models.AppLinkAccessLevel>()" class="form-control"></select>
+                        <span asp-validation-for="AccessLevel" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Priority" class="control-label"></label>
+                        <input asp-for="Priority" class="form-control" />
+                        <span asp-validation-for="Priority" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card border border-primary">
+            <div class="card-header">
+                Create SubLink
+            </div>
+            <div class="card-body">
+                <partial model="new LayoutService.Models.AppSubLink()" name="/Views/AppSubLinksManagement/Create.cshtml" view-data="ViewData" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">Manage SubLinks</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SubLinks[0].DisplayName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SubLinks[0].Uri)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SubLinks[0].IconName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SubLinks[0].AccessLevel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SubLinks[0].Priority)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var subLink in Model.SubLinks)
+                    {
+                    <tr>
+                        <td>@subLink.DisplayName</td>
+                        <td>@subLink.Uri</td>
+                        <td>@subLink.IconName</td>
+                        <td>@subLink.AccessLevel</td>
+                        <td>@subLink.Priority</td>
+                        <td>
+                            <a class="btn btn-primary" asp-controller="AppSubLinksManagement" asp-action="Edit" asp-route-id="@subLink.Id">Edit</a>
+                            <a class="btn btn-danger" asp-controller="AppSubLinksManagement" asp-action="Delete" asp-route-id="@subLink.Id">Delete</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

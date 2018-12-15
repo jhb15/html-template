@@ -1,0 +1,55 @@
+﻿@model LayoutService.Models.AppLink
+
+@{
+    ViewData["Title"] = "Delete AppLink";
+}
+
+<div class="row">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                Delete AppLink
+            </div>
+            <div class="card-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DisplayName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.DisplayName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Uri)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Uri)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IconName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IconName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AccessLevel)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.AccessLevel)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Priority)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Priority)
+                    </dd>
+                </dl>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a asp-action="Index" class="btn btn-primary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

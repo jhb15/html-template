@@ -1,0 +1,51 @@
+﻿@model LayoutService.Models.AppSubLink
+
+@{
+    ViewData["Title"] = "Edit SubLink";
+}
+
+<div class="row">
+    <div class="col-4">
+        <div class="card border">
+            <div class="card-header">
+                Edit SubLink
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <input type="hidden" name="AppLinkId" value="@Model.AppLinkId" />
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="DisplayName" class="control-label"></label>
+                        <input asp-for="DisplayName" class="form-control" />
+                        <span asp-validation-for="DisplayName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Uri" class="control-label"></label>
+                        <input asp-for="Uri" class="form-control" />
+                        <span asp-validation-for="Uri" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IconName" class="control-label"></label>
+                        <input asp-for="IconName" class="form-control" />
+                        <span asp-validation-for="IconName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AccessLevel" class="control-label"></label>
+                        <select asp-for="AccessLevel" asp-items="Html.GetEnumSelectList<LayoutService.Models.AppLinkAccessLevel>()" class="form-control"></select>
+                        <span asp-validation-for="AccessLevel" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Priority" class="control-label"></label>
+                        <input asp-for="Priority" class="form-control" />
+                        <span asp-validation-for="Priority" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                        <a asp-controller="AppLinksManagement" asp-action="Edit" asp-route-id="@Model.AppLinkId" class="btn btn-primary">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
